@@ -1,0 +1,25 @@
+.button {
+    font-size: $font-size-small;
+    font-weight: bold;
+    background-color: $blue;
+    padding: $s-size $m-size;
+    border: none;
+    color: white;
+    display: inline-block;
+    text-decoration: none;
+    text-transform: uppercase;
+    line-height: 1;
+    border-radius: 30rem;
+    transition: all .3s ease-in-out; 
+    &:hover {
+        background-color: darken($color: $blue, $amount: 15)
+    }
+}
+
+.button--link {
+    background: none;
+}
+
+.button--remove {
+    background: #f34242;
+}
