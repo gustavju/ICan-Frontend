@@ -14,7 +14,7 @@ export default class DashboardPage extends React.Component {
         this.interval = setInterval(() => this.updateTrash(), 3000);
     }
     componentWillUnmount() {
-        this.interval = '';
+        clearInterval(this.interval);
     }
     updateTrash() {
         fetch('http://localhost:8500/getTrashcans').then(response => {

@@ -1,5 +1,6 @@
 import React from 'react';
 import TrashcanButton from './TrashcanButton';
+import CirclePercent from './CirclePercent';
 
 const commands = [
     'empty',
@@ -10,6 +11,7 @@ const commands = [
 const Trashcan = ({trashcan}) => (
     <div className="trashcan-card">
         <div className="trashcan-card__id">ID: {trashcan.trashcanId}</div>
+        <CirclePercent percent={trashcan.TrashcanHistoryEntry.trashLevel}/>
         <div className="trashcan-card__trashlevel">Trashlevel: {trashcan.TrashcanHistoryEntry.trashLevel}%</div>
         <hr/>
         <div className="trashcan-card__temperature">Temperature: {trashcan.TrashcanHistoryEntry.temperature}°C</div>

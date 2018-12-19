@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 
 export const Header = () => (
@@ -9,12 +9,12 @@ export const Header = () => (
                 <Link className="header__title" to="/">
                     <h1>ICan</h1>
                 </Link>
-                <Link to="/">
-                    <h3>Trashcans</h3>
-                </Link>
-                <Link to="/garbagetruck">
-                    <h3>Garbagetrucks</h3>
-                </Link>
+                <NavLink activeClassName="is-active" exact={true} className="header__link" to="/">
+                    <h4>Trashcans</h4>
+                </NavLink>
+                <NavLink activeClassName="is-active" className="header__link" to="/garbagetruck">
+                    <h4>Garbagetrucks</h4>
+                </NavLink>
 
             </div>
         </div>
