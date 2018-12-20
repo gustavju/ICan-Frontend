@@ -2,7 +2,7 @@ import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import DashboardPage from '../components/DashboardPage';
 import GarbagetruckPage from '../components/GarbagetruckPage';
-import {Header} from '../components/Header';
+import Header from '../components/Header';
 import NotFoundPage from '../components/NotFoundPage';
 import createHistory from 'history/createBrowserHistory';
 

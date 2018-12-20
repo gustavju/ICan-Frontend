@@ -1,0 +1,33 @@
+.trashcan-table {
+    display: flex;
+    flex-direction: column;
+}
+
+.trashcan-table__title {
+    margin-bottom: 0;
+}
+
+.trashcan-table__header {
+    @extend .trashcan-table__row;
+    height: $l-size;
+    font-weight: bold;
+}
+
+.trashcan-table__row {
+    display: flex;
+    flex-direction: row;
+    margin: $s-size 0;
+    div {
+        padding: 0 $m-size;
+        border-bottom: 1px solid lighten($color: $grey, $amount: 40); 
+    }
+    div:first-child {
+        width: 40%;
+    }
+    div:nth-child(2) {
+        width: 30%;
+    }
+    div:last-child {
+        width: 30%;
+    }
+}
