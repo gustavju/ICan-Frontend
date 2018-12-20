@@ -44,12 +44,15 @@
 .trashcan-card__button {
     @extend .button;
     background-color: $trashcan-btn-color;
-    width: 3.4rem;
+    width: 3.8rem;
     margin: 0.6rem $s-size;
     padding: $s-size;
-    font-size: 1rem;
+    font-size: 1.4rem;
     border-radius: 0.3rem;
     &:hover{
         background-color:  darken($color: $trashcan-btn-color, $amount: 15);
+    }
+    span {
+        pointer-events: none;
     }
 }

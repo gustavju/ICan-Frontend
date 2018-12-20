@@ -1,4 +1,11 @@
 import React from 'react';
+import FontAwesome from 'react-fontawesome';
+
+const commandToIcon = {
+    empty: 'recycle',
+    addTrash: 'plus',
+    startTrashFire: 'fire'
+};
 
 export default class TrashcanButton extends React.Component {
     constructor(props) {
@@ -14,7 +21,7 @@ export default class TrashcanButton extends React.Component {
     }
     render() {
         return (
-            <button className="trashcan-card__button" value={this.props.command} onClick={(e) => this.sendCommand(e, this.props.trashcanId)}>{this.props.command.substring(0, 1)}</button>
+            <button className="trashcan-card__button" value={this.props.command} onClick={(e) => this.sendCommand(e, this.props.trashcanId)}><FontAwesome name={commandToIcon[this.props.command]} /></button>
         );
     }
 }

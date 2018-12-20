@@ -8,12 +8,11 @@ const commands = [
     'startTrashFire'
 ];
 
-const Trashcan = ({trashcan}) => (
+const Trashcan = ({trashcan, percentColor}) => (
     <div className="trashcan-card">
         <div className="trashcan-card__id">ID: {trashcan.trashcanId}</div>
-        <CirclePercent percent={trashcan.TrashcanHistoryEntry.trashLevel}/>
-        <div className="trashcan-card__trashlevel">Trashlevel: {trashcan.TrashcanHistoryEntry.trashLevel}%</div>
-        <hr/>
+        {trashcan.isConnected == 'true' ? <p>Connected</p> : (<p>Disconnected</p>)}
+        <CirclePercent percentColor={percentColor} percent={trashcan.TrashcanHistoryEntry.trashLevel}/>
         <div className="trashcan-card__temperature">Temperature: {trashcan.TrashcanHistoryEntry.temperature}°C</div>
         <div className="trashcan-card__text"><span>Location:</span> {trashcan.location.longitude}, {trashcan.location.latitude}</div>
         <div className="trashcan-card__text"><span>Last Emptied:</span> {trashcan.TrashcanHistoryEntry.lastEmptied}</div>
