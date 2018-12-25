@@ -9,15 +9,20 @@
 
 .trashcan-table__header {
     @extend .trashcan-table__row;
-    height: $l-size;
     font-weight: bold;
+}
+
+.trashcan-table__row.selected > div {
+    background-color: transparentize($color: $primary, $amount: 0.85)
 }
 
 .trashcan-table__row {
     display: flex;
     flex-direction: row;
-    margin: $s-size 0;
+    padding: $s-size 0;
     div {
+        transition: all .3s;
+        pointer-events: none;
         padding: 0 $m-size;
         border-bottom: 1px solid lighten($color: $grey, $amount: 40); 
     }

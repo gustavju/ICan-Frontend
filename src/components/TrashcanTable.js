@@ -1,7 +1,7 @@
 import React from 'react';
 import TrashcanTableRow from './TrashcanTableRow';
 
-const TrashcanTable = ({trashcans}) => (
+const TrashcanTable = ({trashcans, selectTrashcan}) => (
     <div className="trashcan-table">
         <h3 className="trashcan-table__title">Trashcans</h3>
         <div className="trashcan-table__header">
@@ -10,7 +10,7 @@ const TrashcanTable = ({trashcans}) => (
         <div>Temperature</div>
         </div>
         {
-            trashcans.length > 0 ? trashcans.map(trashcan => (<TrashcanTableRow key={trashcan.trashcanId} trashcan={trashcan}/>)) : ''
+            trashcans.length > 0 ? trashcans.map(trashcan => (<TrashcanTableRow selectTrashcan={selectTrashcan} key={trashcan.trashcanId} trashcan={trashcan}/>)) : ''
         }
     </div>
 )

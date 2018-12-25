@@ -1,17 +1,20 @@
 .trashcan-card {
     box-shadow: $shadow;
+    border-radius: $card-border-radius;
+    border: $card-border;
     margin: $s-size;
     padding: $s-size;
     max-width: 30rem;
     display: flex;
     flex-direction: column;
     text-align: center;
-    border-radius: 1rem;
 }
+
 .trashcan-card__id {
     font-size: 0.8rem;
     opacity: 0.5;
 }
+
 .trashcan-card__temperature {
     font-size: 1.6rem;
     margin-bottom: $s-size;
@@ -21,10 +24,11 @@
 }
 
 .trashcan-card__text {
-    text-align: initial;
-    font-size: 1.2rem;
+    text-align: right;
+    font-size: $font-size-small;
     span {
         font-weight: bold;
+        float: left;
     }
 }
 

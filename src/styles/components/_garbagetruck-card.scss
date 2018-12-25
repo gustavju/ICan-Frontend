@@ -1,0 +1,31 @@
+.garbagetruck-card {
+    box-shadow: $shadow;
+    border: $card-border;
+    border-radius: $card-border-radius;
+    padding: $s-size;
+    margin: $s-size;
+    max-width: 21rem;
+    transition: all .3s;
+    div {
+        pointer-events: none;
+    }
+}
+
+.garbagetruck-card__id {
+    text-align: center;
+    font-size: 0.8rem;
+    opacity: 0.5;
+}
+
+.garbagetruck-card.selected {
+    background-color: transparentize($color: $primary, $amount: 0.85);
+}
+
+.garbagetruck-card__text {
+    text-align: right;
+    font-size: $font-size-small;
+    span {
+        font-weight: bold;
+        float: left;
+    }
+}

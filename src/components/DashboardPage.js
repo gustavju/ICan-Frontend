@@ -9,16 +9,25 @@ import { getPercentColor } from '../styles/styleFunctions';
 class DashboardPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            selectedTrashcans: [],
-            selctedGarbagetruck: {} 
-        }
+    }
+    handleMouseEnter() {
+
+    }
+    handleMouseLeave() {
+
     }
     render() {
         return (
             <div>
                 <PageHeader title="Trashcans" subTitle={"Connected"} data={this.props.trashcans.length} />
-                <GoogleMapReact style={{ width: '100%', height: '400px', position: 'relative' }} bootstrapURLKeys={{ key: process.env.GOOGLE_MAPS_API_KEY }} defaultCenter={{ lat: 59.407859, lng: 17.944644 }} defaultZoom={13}>
+                <GoogleMapReact
+                    style={{ width: '100%', height: '400px', position: 'relative' }}
+                    bootstrapURLKeys={{ key: process.env.GOOGLE_MAPS_API_KEY }}
+                    defaultCenter={{ lat: 59.407859, lng: 17.944644 }}
+                    defaultZoom={13}
+                    onChildMouseEnter={this.handleMouseEnter}
+                    onChildMouseLeave={this.handleMouseLeave}
+                >
                     {
                         this.props.trashcans.length > 0 ?
                             this.props.trashcans.map(trashcan => {
