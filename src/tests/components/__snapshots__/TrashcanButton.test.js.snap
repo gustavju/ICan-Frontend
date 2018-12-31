@@ -4,7 +4,6 @@ exports[`should render the TrashcanButton 1`] = `
 <button
   className="trashcan-card__button"
   onClick={[Function]}
-  value="empty"
 >
   <FontAwesome
     name="recycle"

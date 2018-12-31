@@ -1,3 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render Header correctly 1`] = `<UNDEFINED />`;
+exports[`should render Header correctly 1`] = `
+<header
+  className="header"
+>
+  <div
+    className="content-container"
+  >
+    <div
+      className="header__content"
+    >
+      <Link
+        className="header__title"
+        replace={false}
+        to="/"
+      >
+        <h1>
+          ICan
+        </h1>
+      </Link>
+      <NavLink
+        activeClassName="is-active"
+        aria-current="page"
+        className="header__link"
+        exact={true}
+        to="/"
+      >
+        <h4>
+          Trashcans
+        </h4>
+      </NavLink>
+      <NavLink
+        activeClassName="is-active"
+        aria-current="page"
+        className="header__link"
+        to="/garbagetruck"
+      >
+        <h4>
+          Garbagetrucks
+        </h4>
+      </NavLink>
+    </div>
+  </div>
+</header>
+`;

@@ -75,17 +75,17 @@ exports[`should render the Trashcan 1`] = `
   <div
     className="trashcan-card__button-container"
   >
-    <TrashcanButton
+    <Connect(TrashcanButton)
       command="empty"
       key="empty"
       trashcanId="8c13a125-cb3f-4a81-8cc5-c64574b0761f"
     />
-    <TrashcanButton
+    <Connect(TrashcanButton)
       command="addTrash"
       key="addTrash"
       trashcanId="8c13a125-cb3f-4a81-8cc5-c64574b0761f"
     />
-    <TrashcanButton
+    <Connect(TrashcanButton)
       command="startTrashFire"
       key="startTrashFire"
       trashcanId="8c13a125-cb3f-4a81-8cc5-c64574b0761f"
