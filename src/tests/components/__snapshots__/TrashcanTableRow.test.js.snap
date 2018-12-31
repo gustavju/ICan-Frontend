@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render the TrashcanTableRow 1`] = `
+<div
+  className="trashcan-table__row"
+  onClick={[Function]}
+>
+  <div>
+    8c13a125-cb3f-4a81-8cc5-c64574b0761f
+  </div>
+  <div>
+    ONFIRE
+  </div>
+  <div>
+    100.0
+    %
+  </div>
+  <div>
+    128.0
+    °C
+  </div>
+  <div>
+    household
+  </div>
+</div>
+`;

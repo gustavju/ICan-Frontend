@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render the TrashcanButton 1`] = `
+<button
+  className="trashcan-card__button"
+  onClick={[Function]}
+>
+  <FontAwesome
+    name="recycle"
+  />
+</button>
+`;

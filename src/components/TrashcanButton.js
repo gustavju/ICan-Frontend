@@ -1,5 +1,7 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
+import { connect } from 'react-redux';
+import { sendCommand } from '../actions/trashcan';
 
 const commandToIcon = {
     empty: 'recycle',
@@ -7,21 +9,17 @@ const commandToIcon = {
     startTrashFire: 'fire'
 };
 
-export default class TrashcanButton extends React.Component {
-    constructor(props) {
-        super(props);
-        this.sendCommand = this.sendCommand.bind(this);
-    }
-    sendCommand(e, trashcanId) {
-        const target = e.target.value;
-        const fetchUrl = `http://localhost:8500/trashcanCommand?command=${target}&id=${trashcanId}`;
-        fetch(fetchUrl).then(res => {
-            res.json().then((data) => console.log(data.Message));
-        });
-    }
-    render() {
-        return (
-            <button className="trashcan-card__button" value={this.props.command} onClick={(e) => this.sendCommand(e, this.props.trashcanId)}><FontAwesome name={commandToIcon[this.props.command]} /></button>
-        );
-    }
+export const TrashcanButton = ({ command, trashcanId, sendCommand }) => {
+    return (
+        <button className="trashcan-card__button"
+            onClick={() => sendCommand(command, trashcanId)}>
+            <FontAwesome name={commandToIcon[command]} />
+        </button>
+    );
 }
+
+const mapDispatchToProps = (dispatch) => ({
+    sendCommand: (command, trashcanId) => dispatch(sendCommand(command, trashcanId))
+});
+
+export default connect(undefined, mapDispatchToProps)(TrashcanButton);

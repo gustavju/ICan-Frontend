@@ -5,95 +5,58 @@ import FontAwesome from 'react-fontawesome';
 import TrashcanTable from './TrashcanTable';
 import PageHeader from './PageHeader';
 import GarbagetruckCard from './GarbagetruckCard';
+import { sendRoute, getGoogleRoute } from '../actions/garbagetruck';
 import { getPercentColor } from '../styles/styleFunctions';
 
-class GarbagetruckPage extends React.Component {
-    constructor() {
-        super();
+export class GarbagetruckPage extends React.Component {
+    constructor(props) {
+        super(props);
         this.state = {
-            garbagetrucks: [],
             selectedTrashcans: [],
             selctedGarbagetruck: {},
             map: '',
             maps: ''
         };
-        this.interval = setInterval(() => this.updateGarbagetrucks(), 3000);
-        this.updateGarbagetrucks = this.updateGarbagetrucks.bind(this);
     }
-    componentWillUnmount() {
-        clearInterval(this.interval);
+    handleSendRoute = () => {
+        this.props.sendRoute(this.state.selectedTrashcans, this.state.selctedGarbagetruck);
+        this.handleGetGoogleRoute();
     }
-    updateGarbagetrucks() {
-        fetch('http://localhost:8500/getGarbagetruck').then(response => {
-            response.json().then((data) => {
-                console.log(data);
-                this.setState(() => ({ garbagetrucks: data }));
-            });
-        });
+    handleGetGoogleRoute = () => {
+        const origin = new google.maps.LatLng(this.state.selctedGarbagetruck.location.latitude, this.state.selctedGarbagetruck.location.longitude)
+        const waypoints = this.state.selectedTrashcans.map(trashcan => ({ location: new google.maps.LatLng(trashcan.location.latitude, trashcan.location.longitude) }))
+        const destination = new google.maps.LatLng(59.383689, 17.938740)
+        this.props.getGoogleRoute(this.state.map, this.state.maps, origin, waypoints, destination);
     }
-    sendRoute = () => {
-        let trashcanQuery = '';
-        const selectedTrashcans = this.state.selectedTrashcans;
-        for (let i = 0; i < selectedTrashcans.length; i++) {
-            trashcanQuery += `t${i}=${selectedTrashcans[i].trashcanId}&`;
-        }
-        const url = `http://localhost:8500/garbagetruckRoute?garbagetruckId=${this.state.selctedGarbagetruck.garbageTruckId}&num=${selectedTrashcans.length}&${trashcanQuery}`;
-        console.log(url);
-        fetch(url).then(res => {
-            res.json().then((data) => console.log(data.Message));
-        });
-        this.getGoogleRoute();
+    selectElement = (element) => {
+        const isSelected = element.classList.contains('selected');
+        isSelected ? element.classList.remove("selected") : element.classList.add("selected");
+        return isSelected; 
     }
     selectTrashcan = (e, id) => {
-        const element = e.target;
-        if (!element.classList.contains('selected')) {
-            element.classList.add("selected");
-            let trashcan = this.props.trashcans.find(trashcan => trashcan.trashcanId === id);
-            this.setState(() => ({ selectedTrashcans: [...this.state.selectedTrashcans, trashcan] }));
+        const isSelected = this.selectElement(e.target);
+        let selectedTrashcans;
+        if (!isSelected) {
+            selectedTrashcans = [...this.state.selectedTrashcans, this.props.trashcans.find(trashcan => trashcan.trashcanId === id)];
         } else {
-            element.classList.remove("selected");
-            let filterdTrashcans = this.state.selectedTrashcans.filter(trashcan => !trashcan.trashcanId === id);
-            this.setState(() => ({ selectedTrashcans: filterdTrashcans }));
+            selectedTrashcans = this.state.selectedTrashcans.filter(trashcan => !trashcan.trashcanId === id);
         }
+        this.setState(() => ({ selectedTrashcans }));
     }
     selectGarbagetruck = (e, id) => {
-        const element = e.target;
-        if (!element.classList.contains('selected')) {
-            element.classList.add("selected");
-            let grabagetruck = this.state.garbagetrucks.find(garbagetruck => garbagetruck.garbageTruckId === id);
-            this.setState(() => ({ selctedGarbagetruck: grabagetruck }));
+        const isSelected = this.selectElement(e.target);
+        let selctedGarbagetruck;
+        if (!isSelected) {
+            selctedGarbagetruck = this.props.garbagetrucks.find(garbagetruck => garbagetruck.garbageTruckId === id);
         } else {
-            element.classList.remove("selected");
-            this.setState(() => ({ selctedGarbagetruck: '' }));
+            selctedGarbagetruck = '';
         }
+        this.setState(() => ({ selctedGarbagetruck }));
     }
-    getGoogleRoute = () => {
-        let map = this.state.map;
-        let maps = this.state.maps;
-        const directionsService = new maps.DirectionsService();
-        const directionsDisplay = new maps.DirectionsRenderer();
-        let waypoints = this.state.selectedTrashcans.map(trashcan => ({ location: new google.maps.LatLng(trashcan.location.latitude, trashcan.location.longitude) }))
-        directionsService.route({
-            origin: new google.maps.LatLng(this.state.selctedGarbagetruck.location.latitude, this.state.selctedGarbagetruck.location.longitude),
-            destination: new google.maps.LatLng(59.383689, 17.938740),
-            waypoints: waypoints,
-            optimizeWaypoints: true,
-            travelMode: 'DRIVING'
-        }, (response, status) => {
-            if (status === 'OK') {
-                console.log(response);
-                directionsDisplay.setDirections(response);
-                const routePolyline = new google.maps.Polyline({ path: response.routes[0].overview_path });
-                routePolyline.setMap(map);
-            } else {
-                console.log('Directions request failed due to ' + status);
-            }
-        });
-    };
     render() {
         return (
             <div>
-                <PageHeader title="Garbagetrucks" subTitle={"Connected"} data={this.state.garbagetrucks.length} />
+                <PageHeader title="Garbagetrucks" subTitle={"Connected"} data={this.props.garbagetrucks.length} />
                 <GoogleMapReact
                     style={{ width: '100%', height: '400px', position: 'relative' }}
                     bootstrapURLKeys={{ key: process.env.GOOGLE_MAPS_API_KEY }}
@@ -103,14 +66,15 @@ class GarbagetruckPage extends React.Component {
                     yesIWantToUseGoogleMapApiInternals
                 >
                     {
-                        this.state.garbagetrucks.length > 0 ?
-                            this.state.garbagetrucks.map(garbagetruck => {
+                        this.props.garbagetrucks.length > 0 ?
+                            this.props.garbagetrucks.map(garbagetruck => {
                                 let markerStyles = {
                                     fontSize: '2rem',
                                     color: 'grey'
                                 };
                                 return (
                                     <FontAwesome style={markerStyles}
+                                        key={garbagetruck.garbageTruckId}
                                         lat={garbagetruck.location.latitude}
                                         lng={garbagetruck.location.longitude}
                                         text={garbagetruck.garbageTruckId}
@@ -142,8 +106,8 @@ class GarbagetruckPage extends React.Component {
                     }
                 </GoogleMapReact>
                 <div className="content-container">
-                    <button className="button" onClick={this.sendRoute}>Send route</button>
-                    <div>{this.state.garbagetrucks.map(garbagetruck => <GarbagetruckCard selectGarbagetruck={this.selectGarbagetruck} garbagetruck={garbagetruck} />)}</div>
+                    <button className="button" onClick={this.handleSendRoute}>Send route</button>
+                    <div>{this.props.garbagetrucks.length > 0 && this.props.garbagetrucks.map(garbagetruck => <GarbagetruckCard key={garbagetruck.garbageTruckId} selectGarbagetruck={this.selectGarbagetruck} garbagetruck={garbagetruck} />)}</div>
                     <TrashcanTable selectTrashcan={this.selectTrashcan} trashcans={this.props.trashcans} />
                 </div>
             </div>
@@ -153,8 +117,14 @@ class GarbagetruckPage extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        trashcans: state.trashcans
+        trashcans: state.trashcans,
+        garbagetrucks: state.garbagetrucks,
     }
 };
 
-export default connect(mapStateToProps, undefined)(GarbagetruckPage);
+const mapDispatchToProps = (dispatch) => ({
+    sendRoute: (selectTrashcans, selectGarbagetruck) => dispatch(sendRoute(selectTrashcans, selectGarbagetruck)),
+    getGoogleRoute: (map, maps, origin, waypoints, destination) => dispatch(getGoogleRoute(map, maps, origin, waypoints, destination))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(GarbagetruckPage);

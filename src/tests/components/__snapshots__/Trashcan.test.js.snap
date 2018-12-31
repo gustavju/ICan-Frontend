@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render the Trashcan 1`] = `
+<div
+  className="trashcan-card"
+>
+  <div
+    className="trashcan-card__id"
+  >
+    8c13a125-cb3f-4a81-8cc5-c64574b0761f
+  </div>
+  <CirclePercent
+    percent="100.0"
+  />
+  <div
+    className="trashcan-card__Conn"
+  >
+    Connected
+  </div>
+  <div
+    className="trashcan-card__temperature"
+  >
+    Temperature: 
+    128.0
+    °C
+  </div>
+  <hr />
+  <div
+    className="trashcan-card__text"
+  >
+    <span>
+      Status
+    </span>
+     
+    ONFIRE
+  </div>
+  <div
+    className="trashcan-card__text"
+  >
+    <span>
+      Type
+    </span>
+     
+    household
+  </div>
+  <div
+    className="trashcan-card__text"
+  >
+    <span>
+      Location
+    </span>
+     
+    17.947002
+    , 
+    59.398546
+  </div>
+  <div
+    className="trashcan-card__text"
+  >
+    <span>
+      Last Emptied
+    </span>
+      
+    Invalid date
+  </div>
+  <div
+    className="trashcan-card__text"
+  >
+    <span>
+      Data updated
+    </span>
+     
+    Invalid date
+  </div>
+  <div
+    className="trashcan-card__button-container"
+  >
+    <Connect(TrashcanButton)
+      command="empty"
+      key="empty"
+      trashcanId="8c13a125-cb3f-4a81-8cc5-c64574b0761f"
+    />
+    <Connect(TrashcanButton)
+      command="addTrash"
+      key="addTrash"
+      trashcanId="8c13a125-cb3f-4a81-8cc5-c64574b0761f"
+    />
+    <Connect(TrashcanButton)
+      command="startTrashFire"
+      key="startTrashFire"
+      trashcanId="8c13a125-cb3f-4a81-8cc5-c64574b0761f"
+    />
+  </div>
+</div>
+`;

@@ -6,7 +6,7 @@ import FontAwesome from 'react-fontawesome';
 import { connect } from 'react-redux';
 import { getPercentColor } from '../styles/styleFunctions';
 
-class DashboardPage extends React.Component {
+export class DashboardPage extends React.Component {
     constructor(props) {
         super(props);
     }

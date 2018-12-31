@@ -13,18 +13,33 @@ exports[`should render Header correctly 1`] = `
       <Link
         className="header__title"
         replace={false}
-        to="/dashboard"
+        to="/"
       >
         <h1>
-          App title!
+          ICan
         </h1>
       </Link>
-      <button
-        className="button button--link"
-        onClick={[MockFunction]}
+      <NavLink
+        activeClassName="is-active"
+        aria-current="page"
+        className="header__link"
+        exact={true}
+        to="/"
       >
-        Logout
-      </button>
+        <h4>
+          Trashcans
+        </h4>
+      </NavLink>
+      <NavLink
+        activeClassName="is-active"
+        aria-current="page"
+        className="header__link"
+        to="/garbagetruck"
+      >
+        <h4>
+          Garbagetrucks
+        </h4>
+      </NavLink>
     </div>
   </div>
 </header>

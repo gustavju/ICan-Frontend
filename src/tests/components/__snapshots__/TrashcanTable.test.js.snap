@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render the TrashcanTable 1`] = `
+<div
+  className="trashcan-table"
+>
+  <h3
+    className="trashcan-table__title"
+  >
+    Trashcans
+  </h3>
+  <div
+    className="trashcan-table__header"
+  >
+    <div>
+      ID
+    </div>
+    <div>
+      Status
+    </div>
+    <div>
+      Trashlevel
+    </div>
+    <div>
+      Temperature
+    </div>
+    <div>
+      Type
+    </div>
+  </div>
+  <TrashcanTableRow
+    key="8c13a125-cb3f-4a81-8cc5-c64574b0761f"
+    trashcan={
+      Object {
+        "TrashcanHistoryEntry": Object {
+          "canStatus": "ONFIRE",
+          "lastEmptied": "Mon Dec 31 14:18:38 CET 2018",
+          "temperature": "128.0",
+          "timestamp": "Mon Dec 31 14:45:08 CET 2018",
+          "trashLevel": "100.0",
+        },
+        "isConnected": "true",
+        "location": Object {
+          "latitude": "59.398546",
+          "longitude": "17.947002",
+        },
+        "trashcanId": "8c13a125-cb3f-4a81-8cc5-c64574b0761f",
+        "type": "household",
+      }
+    }
+  />
+  <TrashcanTableRow
+    key="0b394d27-1d7a-448e-b7f6-fa38d2f1ea41"
+    trashcan={
+      Object {
+        "TrashcanHistoryEntry": Object {
+          "canStatus": "EMPTY",
+          "lastEmptied": "Mon Dec 31 14:49:51 CET 2018",
+          "temperature": "10.0",
+          "timestamp": "Mon Dec 31 14:49:52 CET 2018",
+          "trashLevel": "10.0",
+        },
+        "isConnected": "true",
+        "location": Object {
+          "latitude": "59.407859",
+          "longitude": "17.944644",
+        },
+        "trashcanId": "0b394d27-1d7a-448e-b7f6-fa38d2f1ea41",
+        "type": "electronics",
+      }
+    }
+  />
+</div>
+`;

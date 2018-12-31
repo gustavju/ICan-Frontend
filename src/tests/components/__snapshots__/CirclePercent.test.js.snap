@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render the CirclePercent 1`] = `
+<div
+  className="circle-percent__label"
+>
+  <svg
+    className="circle-percent__svg"
+    height="200"
+    version="1.1"
+    viewport="0 0 100 100"
+    width="200"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle
+      cx="100"
+      cy="100"
+      r="90"
+      strokeDasharray="565.48"
+      strokeDashoffset="0"
+    />
+    <circle
+      cx="100"
+      cy="100"
+      r="90"
+      strokeDasharray="565.48"
+      strokeDashoffset="0"
+      style={
+        Object {
+          "stroke": undefined,
+          "strokeDashoffset": NaN,
+        }
+      }
+    />
+  </svg>
+</div>
+`;
