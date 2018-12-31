@@ -10,7 +10,7 @@ This aspiration of this project is to show how a system with connected trashcans
 
 ## Backend
 
-The backend of the system is writen in java and can be found here - [ICan](https://github.com/purree/ICan)
+The backend of the system is written in java and can be found here - [ICan](https://github.com/purree/ICan)
 
 ## Authors
 * [**Adam Kolterud**](https://github.com/Stuix)
