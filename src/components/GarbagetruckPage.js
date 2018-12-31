@@ -8,28 +8,14 @@ import GarbagetruckCard from './GarbagetruckCard';
 import { getPercentColor } from '../styles/styleFunctions';
 
 class GarbagetruckPage extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            garbagetrucks: [],
             selectedTrashcans: [],
             selctedGarbagetruck: {},
             map: '',
             maps: ''
         };
-        this.interval = setInterval(() => this.updateGarbagetrucks(), 3000);
-        this.updateGarbagetrucks = this.updateGarbagetrucks.bind(this);
-    }
-    componentWillUnmount() {
-        clearInterval(this.interval);
-    }
-    updateGarbagetrucks() {
-        fetch('http://localhost:8500/getGarbagetruck').then(response => {
-            response.json().then((data) => {
-                console.log(data);
-                this.setState(() => ({ garbagetrucks: data }));
-            });
-        });
     }
     sendRoute = () => {
         let trashcanQuery = '';
@@ -60,8 +46,8 @@ class GarbagetruckPage extends React.Component {
         const element = e.target;
         if (!element.classList.contains('selected')) {
             element.classList.add("selected");
-            let grabagetruck = this.state.garbagetrucks.find(garbagetruck => garbagetruck.garbageTruckId === id);
-            this.setState(() => ({ selctedGarbagetruck: grabagetruck }));
+            let garbagetruck = this.props.garbagetrucks.find(garbagetruck => garbagetruck.garbageTruckId === id);
+            this.setState(() => ({ selctedGarbagetruck: garbagetruck }));
         } else {
             element.classList.remove("selected");
             this.setState(() => ({ selctedGarbagetruck: '' }));
@@ -93,7 +79,7 @@ class GarbagetruckPage extends React.Component {
     render() {
         return (
             <div>
-                <PageHeader title="Garbagetrucks" subTitle={"Connected"} data={this.state.garbagetrucks.length} />
+                <PageHeader title="Garbagetrucks" subTitle={"Connected"} data={this.props.garbagetrucks.length} />
                 <GoogleMapReact
                     style={{ width: '100%', height: '400px', position: 'relative' }}
                     bootstrapURLKeys={{ key: process.env.GOOGLE_MAPS_API_KEY }}
@@ -103,8 +89,8 @@ class GarbagetruckPage extends React.Component {
                     yesIWantToUseGoogleMapApiInternals
                 >
                     {
-                        this.state.garbagetrucks.length > 0 ?
-                            this.state.garbagetrucks.map(garbagetruck => {
+                        this.props.garbagetrucks.length > 0 ?
+                            this.props.garbagetrucks.map(garbagetruck => {
                                 let markerStyles = {
                                     fontSize: '2rem',
                                     color: 'grey'
@@ -143,7 +129,7 @@ class GarbagetruckPage extends React.Component {
                 </GoogleMapReact>
                 <div className="content-container">
                     <button className="button" onClick={this.sendRoute}>Send route</button>
-                    <div>{this.state.garbagetrucks.map(garbagetruck => <GarbagetruckCard selectGarbagetruck={this.selectGarbagetruck} garbagetruck={garbagetruck} />)}</div>
+                    <div>{this.props.garbagetrucks.length > 0 && this.props.garbagetrucks.map(garbagetruck => <GarbagetruckCard selectGarbagetruck={this.selectGarbagetruck} garbagetruck={garbagetruck} />)}</div>
                     <TrashcanTable selectTrashcan={this.selectTrashcan} trashcans={this.props.trashcans} />
                 </div>
             </div>
@@ -153,7 +139,8 @@ class GarbagetruckPage extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        trashcans: state.trashcans
+        trashcans: state.trashcans,
+        garbagetrucks: state.garbagetrucks,
     }
 };
 

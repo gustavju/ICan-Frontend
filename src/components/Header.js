@@ -2,11 +2,15 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setTrashcans } from '../actions/trashcan';
+import { setGarbagetrucks } from '../actions/garbagetruck';
 
 class Header extends React.Component {
     constructor(props) {
         super(props);
-        this.interval = setInterval(() => this.updateTrash(), 3000);
+        this.interval = setInterval(() => {
+            this.updateTrash();
+            this.updateGarbagetrucks();
+        }, 3000);
     }
     componentWillUnmount() {
         clearInterval(this.interval);
@@ -16,6 +20,14 @@ class Header extends React.Component {
             response.json().then((data) => {
                 console.log(data);
                 this.props.setTrashcans(data);
+            });
+        });
+    }
+    updateGarbagetrucks() {
+        fetch('http://localhost:8500/getGarbagetruck').then(response => {
+            response.json().then((data) => {
+                console.log(data);
+                this.props.setGarbagetrucks(data);
             });
         });
     }
@@ -43,11 +55,13 @@ class Header extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        trashcans: state.trashcans
+        trashcans: state.trashcans,
+        garbagetrucks: state.garbagetrucks,
     }
 };
 const mapDispatchToProps = (dispatch) => ({
-    setTrashcans: (trashcans) => dispatch(setTrashcans(trashcans))
+    setTrashcans: (trashcans) => dispatch(setTrashcans(trashcans)),
+    setGarbagetrucks: (garbagetrucks) => dispatch(setGarbagetrucks(garbagetrucks))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
