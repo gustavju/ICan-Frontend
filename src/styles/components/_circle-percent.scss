@@ -2,8 +2,9 @@
 .circle-percent__svg circle {
     stroke-dashoffset: 0;
     transition: stroke-dashoffset 1s linear, stroke 1s linear;
-    stroke: #666;
+    stroke: #e0e0e0;
     stroke-width: 1em;
+    stroke-linecap: round;
     fill: transparent;
   }
 

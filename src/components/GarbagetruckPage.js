@@ -81,6 +81,7 @@ class GarbagetruckPage extends React.Component {
             travelMode: 'DRIVING'
         }, (response, status) => {
             if (status === 'OK') {
+                console.log(response);
                 directionsDisplay.setDirections(response);
                 const routePolyline = new google.maps.Polyline({ path: response.routes[0].overview_path });
                 routePolyline.setMap(map);
@@ -141,8 +142,7 @@ class GarbagetruckPage extends React.Component {
                     }
                 </GoogleMapReact>
                 <div className="content-container">
-                    <button className="button" onClick={this.sendRoute}>Send</button>
-                    <button className="button" onClick={this.updateGarbagetrucks}>Update</button>
+                    <button className="button" onClick={this.sendRoute}>Send route</button>
                     <div>{this.state.garbagetrucks.map(garbagetruck => <GarbagetruckCard selectGarbagetruck={this.selectGarbagetruck} garbagetruck={garbagetruck} />)}</div>
                     <TrashcanTable selectTrashcan={this.selectTrashcan} trashcans={this.props.trashcans} />
                 </div>

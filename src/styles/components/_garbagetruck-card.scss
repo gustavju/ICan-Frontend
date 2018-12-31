@@ -18,7 +18,8 @@
 }
 
 .garbagetruck-card.selected {
-    background-color: transparentize($color: $primary, $amount: 0.85);
+    background-color: transparentize($color: $primary, $amount: 0.9);
+    border-left: 1px solid $primary;
 }
 
 .garbagetruck-card__text {
