@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render the PageHeader 1`] = `
+<div
+  className="page-header"
+>
+  <div
+    className="content-container"
+  >
+    <h2
+      className="page-header__title"
+    >
+      title
+    </h2>
+    <h3
+      className="page-header__subtitle"
+    >
+      <span>
+        1
+      </span>
+       
+      subTitle
+    </h3>
+  </div>
+</div>
+`;

@@ -7,7 +7,7 @@ import PageHeader from './PageHeader';
 import GarbagetruckCard from './GarbagetruckCard';
 import { getPercentColor } from '../styles/styleFunctions';
 
-class GarbagetruckPage extends React.Component {
+export class GarbagetruckPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -97,6 +97,7 @@ class GarbagetruckPage extends React.Component {
                                 };
                                 return (
                                     <FontAwesome style={markerStyles}
+                                        key={garbagetruck.garbageTruckId}
                                         lat={garbagetruck.location.latitude}
                                         lng={garbagetruck.location.longitude}
                                         text={garbagetruck.garbageTruckId}
@@ -129,7 +130,7 @@ class GarbagetruckPage extends React.Component {
                 </GoogleMapReact>
                 <div className="content-container">
                     <button className="button" onClick={this.sendRoute}>Send route</button>
-                    <div>{this.props.garbagetrucks.length > 0 && this.props.garbagetrucks.map(garbagetruck => <GarbagetruckCard selectGarbagetruck={this.selectGarbagetruck} garbagetruck={garbagetruck} />)}</div>
+                    <div>{this.props.garbagetrucks.length > 0 && this.props.garbagetrucks.map(garbagetruck => <GarbagetruckCard key={garbagetruck.garbageTruckId} selectGarbagetruck={this.selectGarbagetruck} garbagetruck={garbagetruck} />)}</div>
                     <TrashcanTable selectTrashcan={this.selectTrashcan} trashcans={this.props.trashcans} />
                 </div>
             </div>
