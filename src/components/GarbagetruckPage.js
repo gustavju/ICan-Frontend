@@ -7,31 +7,46 @@ import PageHeader from './PageHeader';
 import GarbagetruckCard from './GarbagetruckCard';
 import { sendRoute, getGoogleRoute } from '../actions/garbagetruck';
 import { getPercentColor } from '../styles/styleFunctions';
+import { store } from '../app';
 
 export class GarbagetruckPage extends React.Component {
     constructor(props) {
         super(props);
+        let unsub = store.subscribe(this.handleGarbagetruckMove);
         this.state = {
             selectedTrashcans: [],
             selctedGarbagetruck: {},
             map: '',
-            maps: ''
+            maps: '',
+            origin: '',
+            waypoints: [],
+            destination: ''
         };
+    }
+    handleGarbagetruckMove = () => {
+        if (this.props.garbagetrucks.length > 0) {
+            let currentLocation = store.getState().garbagetrucks[0].location;
+            if (this.state.origin && currentLocation.latitude != this.state.origin.lat()) {
+                const origin = new google.maps.LatLng(currentLocation.latitude, currentLocation.longitude);
+                const waypoints = this.state.waypoints.splice(1, 1);
+                this.setState(() => ({ origin, waypoints }));
+                this.props.route.setMap(null);
+                this.props.getGoogleRoute(this.state.map, this.state.maps, origin, waypoints, this.state.destination);
+            }
+        }
     }
     handleSendRoute = () => {
         this.props.sendRoute(this.state.selectedTrashcans, this.state.selctedGarbagetruck);
-        this.handleGetGoogleRoute();
-    }
-    handleGetGoogleRoute = () => {
         const origin = new google.maps.LatLng(this.state.selctedGarbagetruck.location.latitude, this.state.selctedGarbagetruck.location.longitude)
         const waypoints = this.state.selectedTrashcans.map(trashcan => ({ location: new google.maps.LatLng(trashcan.location.latitude, trashcan.location.longitude) }))
         const destination = new google.maps.LatLng(59.383689, 17.938740)
+        this.setState(() => ({ origin, waypoints, destination }));
         this.props.getGoogleRoute(this.state.map, this.state.maps, origin, waypoints, destination);
     }
     selectElement = (element) => {
         const isSelected = element.classList.contains('selected');
         isSelected ? element.classList.remove("selected") : element.classList.add("selected");
-        return isSelected; 
+        return isSelected;
     }
     selectTrashcan = (e, id) => {
         const isSelected = this.selectElement(e.target);
@@ -67,33 +82,27 @@ export class GarbagetruckPage extends React.Component {
                 >
                     {
                         this.props.garbagetrucks.length > 0 ?
-                            this.props.garbagetrucks.map(garbagetruck => {
-                                let markerStyles = {
-                                    fontSize: '2rem',
-                                    color: 'grey'
-                                };
-                                return (
-                                    <FontAwesome style={markerStyles}
+                            this.props.garbagetrucks.map(garbagetruck =>
+                                (
+                                    <FontAwesome
+                                        style={{ fontSize: '2rem', color: 'grey' }}
                                         key={garbagetruck.garbageTruckId}
                                         lat={garbagetruck.location.latitude}
                                         lng={garbagetruck.location.longitude}
                                         text={garbagetruck.garbageTruckId}
-                                        name="truck" >
+                                        name="truck">
                                     </FontAwesome>
-                                );
-                            }
+                                )
+
                             ) : <p>No connected garbagetrucks!</p>
                     }
                     {
                         this.props.trashcans.length > 0 ?
                             this.props.trashcans.map(trashcan => {
                                 let color = trashcan.isConnected == 'false' ? 'grey' : getPercentColor(trashcan.TrashcanHistoryEntry.trashLevel);
-                                let markerStyles = {
-                                    fontSize: '2rem',
-                                    color
-                                };
                                 return (
-                                    <FontAwesome style={markerStyles}
+                                    <FontAwesome
+                                        style={{ fontSize: '2rem', color }}
                                         key={trashcan.trashcanId}
                                         lat={trashcan.location.latitude}
                                         lng={trashcan.location.longitude}
@@ -119,6 +128,7 @@ const mapStateToProps = (state) => {
     return {
         trashcans: state.trashcans,
         garbagetrucks: state.garbagetrucks,
+        route: state.route,
     }
 };
 

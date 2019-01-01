@@ -7,7 +7,6 @@ export const updateTrashcans = () => {
     return (dispatch) => {
         fetch('http://localhost:8500/getTrashcans').then(response => {
             response.json().then((data) => {
-                console.log(data);
                 dispatch(setTrashcans(data));
             });
         });

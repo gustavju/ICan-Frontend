@@ -7,7 +7,8 @@ import './styles/styles.scss';
 import 'normalize.css/normalize.css';
 import 'react-dates/initialize';
 
-const store = configureStore();
+export const store = configureStore();
+
 
 const jsx = (
     <Provider store={store}>

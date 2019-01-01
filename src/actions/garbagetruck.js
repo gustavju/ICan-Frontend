@@ -1,3 +1,6 @@
+import { store } from '../app';
+import { setRoute } from '../actions/route';
+
 export const setGarbagetrucks = (garbagetrucks) => ({
     type: 'SET_GARBAGETRUCKS',
     garbagetrucks
@@ -7,7 +10,6 @@ export const updateGarbagetrucks = () => {
     return (dispatch) => {
         fetch('http://localhost:8500/getGarbagetruck').then(response => {
             response.json().then((data) => {
-                console.log(data);
                 dispatch(setGarbagetrucks(data));
             });
         });
@@ -21,7 +23,6 @@ export const sendRoute = (selectedTrashcans, selctedGarbagetruck) => {
             trashcanQuery += `t${i}=${selectedTrashcans[i].trashcanId}&`;
         }
         const url = `http://localhost:8500/garbagetruckRoute?garbagetruckId=${selctedGarbagetruck.garbageTruckId}&num=${selectedTrashcans.length}&${trashcanQuery}`;
-        console.log(url);
         fetch(url).then(res => {
             res.json().then((data) => console.log(data.Message));
         });
@@ -43,6 +44,7 @@ export const getGoogleRoute = (map, maps, origin, waypoints, destination) => {
                 console.log(response);
                 directionsDisplay.setDirections(response);
                 const routePolyline = new google.maps.Polyline({ path: response.routes[0].overview_path });
+                store.dispatch(setRoute(routePolyline));
                 routePolyline.setMap(map);
             } else {
                 console.log('Directions request failed due to ' + status);
