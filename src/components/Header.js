@@ -42,4 +42,4 @@ const mapDispatchToProps = (dispatch) => ({
     updateGarbagetrucks: () => dispatch(updateGarbagetrucks())
 });
 
-export default connect(undefined, mapDispatchToProps)(Header);
+export default connect(undefined, mapDispatchToProps, undefined, { pure: false })(Header);

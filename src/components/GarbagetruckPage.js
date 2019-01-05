@@ -12,7 +12,7 @@ import { store } from '../app';
 export class GarbagetruckPage extends React.Component {
     constructor(props) {
         super(props);
-        let unsub = store.subscribe(this.handleGarbagetruckMove);
+        let unsub;
         this.state = {
             selectedTrashcans: [],
             selctedGarbagetruck: {},
@@ -26,16 +26,23 @@ export class GarbagetruckPage extends React.Component {
     handleGarbagetruckMove = () => {
         if (this.props.garbagetrucks.length > 0) {
             let currentLocation = store.getState().garbagetrucks[0].location;
-            if (this.state.origin && currentLocation.latitude != this.state.origin.lat()) {
-                const origin = new google.maps.LatLng(currentLocation.latitude, currentLocation.longitude);
-                const waypoints = this.state.waypoints.splice(1, 1);
-                this.setState(() => ({ origin, waypoints }));
-                this.props.route.setMap(null);
-                this.props.getGoogleRoute(this.state.map, this.state.maps, origin, waypoints, this.state.destination);
+            if (!this.state.origin || currentLocation.latitude == this.state.origin.lat()) {
+                return;
             }
+            if (currentLocation.latitude == this.state.destination.latitude) {
+                this.props.route.setMap(null);
+                this.unsub();
+                return;
+            }
+            const origin = new google.maps.LatLng(currentLocation.latitude, currentLocation.longitude);
+            const waypoints = this.state.waypoints.splice(1, 1);
+            this.setState(() => ({ origin, waypoints }));
+            this.props.route.setMap(null);
+            this.props.getGoogleRoute(this.state.map, this.state.maps, origin, waypoints, this.state.destination);
         }
     }
     handleSendRoute = () => {
+        this.unsub = store.subscribe(this.handleGarbagetruckMove);
         this.props.sendRoute(this.state.selectedTrashcans, this.state.selctedGarbagetruck);
         const origin = new google.maps.LatLng(this.state.selctedGarbagetruck.location.latitude, this.state.selctedGarbagetruck.location.longitude)
         const waypoints = this.state.selectedTrashcans.map(trashcan => ({ location: new google.maps.LatLng(trashcan.location.latitude, trashcan.location.longitude) }))
@@ -116,6 +123,7 @@ export class GarbagetruckPage extends React.Component {
                 </GoogleMapReact>
                 <div className="content-container">
                     <button className="button" onClick={this.handleSendRoute}>Send route</button>
+                    <h3 className="">Garbagetrucks</h3>
                     <div>{this.props.garbagetrucks.length > 0 && this.props.garbagetrucks.map(garbagetruck => <GarbagetruckCard key={garbagetruck.garbageTruckId} selectGarbagetruck={this.selectGarbagetruck} garbagetruck={garbagetruck} />)}</div>
                     <TrashcanTable selectTrashcan={this.selectTrashcan} trashcans={this.props.trashcans} />
                 </div>

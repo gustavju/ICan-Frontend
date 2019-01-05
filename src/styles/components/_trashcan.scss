@@ -15,6 +15,11 @@
     opacity: 0.5;
 }
 
+.trashcan-card__connection {
+    font-size: $font-size-small;
+    font-weight: bold;
+}
+
 .trashcan-card__temperature {
     font-size: 1.6rem;
     margin-bottom: $s-size;
@@ -24,6 +29,7 @@
 }
 
 .trashcan-card__text {
+    margin: 0.2rem;
     text-align: right;
     font-size: $font-size-small;
     span {

@@ -1,11 +1,11 @@
 .garbagetruck-card {
-    box-shadow: $shadow;
-    border: $card-border;
     border-radius: $card-border-radius;
+    border: $card-border;
     padding: $s-size;
     margin: $s-size;
     max-width: 21rem;
     transition: all .3s;
+    box-shadow: $shadow;
     div {
         pointer-events: none;
     }

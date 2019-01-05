@@ -9,8 +9,9 @@
     text-decoration: none;
     text-transform: uppercase;
     line-height: 1;
-    border-radius: 30rem;
+    border-radius: $card-border-radius;
     transition: all .3s ease-in-out; 
+    margin-top: $m-size;
     &:hover {
         background-color: darken($color: $primary, $amount: 15)
     }

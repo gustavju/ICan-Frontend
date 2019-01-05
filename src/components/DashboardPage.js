@@ -10,12 +10,6 @@ export class DashboardPage extends React.Component {
     constructor(props) {
         super(props);
     }
-    handleMouseEnter() {
-
-    }
-    handleMouseLeave() {
-
-    }
     render() {
         return (
             <div>

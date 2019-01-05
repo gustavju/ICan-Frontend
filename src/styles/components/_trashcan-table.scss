@@ -1,6 +1,7 @@
 .trashcan-table {
     display: flex;
     flex-direction: column;
+    margin-bottom: $s-size;
 }
 
 .trashcan-table__title {
@@ -10,6 +11,9 @@
 .trashcan-table__header {
     @extend .trashcan-table__row;
     font-weight: bold;
+    &:hover > div {
+        background-color: #fff !important;
+    }
 }
 
 .trashcan-table__row.selected > div {
@@ -20,14 +24,12 @@
 }
 
 .trashcan-table__row {
-    display: flex;
-    flex-direction: row;
-    padding: $s-size 0;
+    display: inline-flex;
+    border-bottom: 1px solid lighten($color: $grey, $amount: 40); 
     div {
         transition: all .3s;
         pointer-events: none;
         padding: 0 $m-size;
-        border-bottom: 1px solid lighten($color: $grey, $amount: 40); 
     }
     div:first-child {
         width: 30%;
@@ -46,4 +48,8 @@
     div:nth-child(5) {
         width: 20%;
     }
+}
+
+.trashcan-table__row:hover > div {
+    background-color: darken($color: #fff, $amount: 5);
 }
