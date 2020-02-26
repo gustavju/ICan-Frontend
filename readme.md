@@ -14,5 +14,5 @@ The backend of the system is written in java and can be found here - [ICan](http
 
 ## Authors
 * [**Adam Kolterud**](https://github.com/Stuix)
-* [**Gustavv Junedahl**](https://github.com/purree)
+* [**Gustav Junedahl**](https://github.com/purree)
 * [**Hojjat Seyed**](https://github.com/hojjats)
